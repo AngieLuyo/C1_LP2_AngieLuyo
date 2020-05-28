@@ -1,4 +1,3 @@
-<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html>
 <html lang="esS" >
 <head>
@@ -11,12 +10,12 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-1.10.2.min.js"></script>
 <script src="js/bootstrapValidator.js"></script>
-<title>Registra Alumno</title>
+<title>Registra Cliente</title>
 </head>
 <body>
 
 <div class="container">
-<h1>Registra Alumno</h1>
+<h1>Registra Cliente</h1>
 
 	<c:if test="${sessionScope.MENSAJE != null}">
 		<div class="alert alert-success fade in" id="success-alert">
@@ -26,27 +25,31 @@
 	</c:if>
 	<c:remove var="MENSAJE" />
 
-	<form action="insertaAlumno" id="id_form"> 
+	<form action="insertaCliente" id="id_form"> 
 			<input type="hidden" name="metodo" value="registra">	
 			<div class="form-group">
 				<label class="control-label" for="id_nombre">Nombres</label>
 				<input class="form-control" type="text" id="id_nombre" name="nombre" placeholder="Ingrese el nombre">
 			</div>
 			<div class="form-group">
-				<label class="control-label" for="id_apellido">Apellido</label>
+				<label class="control-label" for="id_apellido">Apellidos</label>
 				<input class="form-control" type="text" id="id_apellido" name="apellido" placeholder="Ingrese el apellido">
 			</div>
-			<div class="form-group">
-				<label class="control-label" for="id_fecha">Fecha Nacimiento</label>
-				<input class="form-control" type="text" id="id_fecha" name="fecha" placeholder="Ingrese la fecha">
-			</div>
-				
+	
 			<div class="form-group">
 				<label class="control-label" for="id_correo">Correo</label>
 				<input class="form-control" type="text" id="id_correo" name="correo" placeholder="Ingrese el correo">
 			</div>
 			<div class="form-group">
-				<button type="submit" class="btn btn-primary" >Crea Alumno</button>
+				<label class="control-label" for="id_fecha">Fecha Nacimiento</label>
+				<input class="form-control" type="text" id="id_fecha" name="fecha" placeholder="Ingrese la fecha">
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="id_dni">DNI</label>
+				<input class="form-control" type="text" id="id_dni" name="dni" placeholder="Ingrese el dni">
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary" >Crea Cliente</button>
 			</div>
 		
 	</form>
@@ -76,9 +79,9 @@ $(document).ready(function() {
         				message :"El nombre es obligatorio"
         			},
         			stringLength :{
-                     	message:"El nombre es de 2 a 20 caracteres",
-                     	min : 2,
-                     	max : 20
+                     	message:"El nombre es de 3 a 30 caracteres",
+                     	min : 3,
+                     	max : 30
                     }
         		}
         	},
@@ -89,11 +92,24 @@ $(document).ready(function() {
         				message :"El apellido es obligatorio"
         			},
         			stringLength :{
-                     	message:"El apellido es de 2 a 20 caracteres",
-                     	min : 2,
-                     	max : 20
+                     	message:"El apellido es de 3 a 30 caracteres",
+                     	min : 3,
+                     	max : 30
                     }
         		}
+        	},
+        
+        	correo :{
+        		selector : '#id_correo',
+        		validators :{
+        			notEmpty :{
+        				message :"El correo es obligatorio"
+        			},
+        			emailAddress: {
+                        message: 'El correo no tiene formato adecuado'
+                    }
+        		}
+        	
         	},
         	fecha :{
         		selector : '#id_fecha',
@@ -108,18 +124,24 @@ $(document).ready(function() {
 		          
         		}
         	},
-        	correo :{
-        		selector : '#id_correo',
+          	dni :{
+          		selector : '#id_dni',
         		validators :{
         			notEmpty :{
-        				message :"El correo es obligatorio"
+        				message :"El dni es obligatorio"
         			},
-        			emailAddress: {
-                        message: 'El correo no tiene formato adecuado'
+        			 integer: {
+                         message: 'Sólo dígitos'
+                     },
+        			stringLength :{
+                     	message:"El DNI es de 8 caracteres",
+                     	min : 8,
+                     	max : 8
                     }
         		}
-        	
         	},
+        	
+        	
         }
   
     });

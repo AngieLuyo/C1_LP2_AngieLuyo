@@ -8,35 +8,39 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entidad.Alumno;
-import model.AlumnoModel;
+import entidad.Cliente;
+import model.ClienteModel;
 
 /**
- * Servlet implementation class AlumnoControlador
+ * Servlet implementation class ClienteControlador
  */
-@WebServlet("/insertaAlumno")
-public class AlumnoControlador extends HttpServlet {
+@WebServlet("/insertaCliente")
+public class ClienteControlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
+	/**
+	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			//1 Recibe los parámetros
 			//Son los nombres de las caja de textos en el JSP
 			String nom = request.getParameter("nombre");
 			String ape = request.getParameter("apellido");
-			String fec = request.getParameter("fecha");
 			String cor = request.getParameter("correo");
+			String fec = request.getParameter("fecha");
+			String dn = request.getParameter("dni");
 			
 			//2 Se crea el objeto Alumno
-			Alumno obj = new Alumno();
+			Cliente obj = new Cliente();
 			obj.setNombre(nom);
 			obj.setApellido(ape);
-			obj.setFecha(fec);
 			obj.setCorreo(cor);
+			obj.setFecNaci(fec);
+			obj.setDni(dn);
 			
-			AlumnoModel m = new AlumnoModel();
-			int s = m.insertaAlumno(obj);
+			ClienteModel m = new ClienteModel();
+			int s = m.insertaCliente(obj);
 			if (s>0)
 				request.getSession().setAttribute("MENSAJE", "registro exitoso");
 			else
@@ -46,11 +50,11 @@ public class AlumnoControlador extends HttpServlet {
 			e.printStackTrace();
 			request.getSession().setAttribute("MENSAJE", "registro erróneo");
 		} finally {
-			response.sendRedirect("registraAlumno.jsp");
+			response.sendRedirect("registraCliente.jsp");
 		}
 
 	}
 	
-	
+	}
 
-}
+

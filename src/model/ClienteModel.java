@@ -3,12 +3,12 @@ package model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-
-import entidad.Jugador;
+import entidad.Cliente;
 import util.MysqlDBConexion;
 
-public class JugadorModel {
-	public int insertaJugador(Jugador obj){
+public class ClienteModel {
+
+	public int insertaCliente(Cliente obj){
 		int salida = -1;
 		
 		Connection conn= null;
@@ -16,13 +16,13 @@ public class JugadorModel {
 		try {
 			
 			conn = MysqlDBConexion.getConexion();
-			String sql ="insert into jugador values(null,?,?,?,?,?)";
+			String sql ="insert into cliente values(null,?,?,?,?,?)";
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, obj.getNombre());
-			pstm.setString(2, obj.getAlias());
-			pstm.setString(3, obj.getPais());
-			pstm.setString(4, obj.getJuego());
-			pstm.setInt(5, obj.getExperiencia());
+			pstm.setString(2, obj.getApellido());
+			pstm.setString(3, obj.getCorreo());
+			pstm.setString(4, obj.getFecNaci());
+			pstm.setString(5, obj.getDni());
 			
 			//La variable contiene el número de registros en la BD
 			salida = pstm.executeUpdate();
